@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import theme from '../theme';
 import Text from './Text';
 
 const RepositoryItem = ({ item }) => {
@@ -13,7 +14,7 @@ const RepositoryItem = ({ item }) => {
       <View style={{ paddingHorizontal: 8 }}>
         <Text style={styles.title}>{item.fullName}</Text>
         <Text color="textSecondary" style={{ marginVertical: 8 }}>{item.description}</Text>
-        <Text style={{ backgroundColor: "#0366d6", borderRadius: 3, alignSelf: "flex-start", color: "white", padding: 4 }}>{item.language}</Text>
+        <Text style={{ backgroundColor: theme.colors.primary, borderRadius: 3, alignSelf: "flex-start", color: "white", padding: 4 }}>{item.language}</Text>
       </View>
     </View>
     <View style={{ flexDirection: 'row', justifyContent: "space-around", paddingVertical: 8 }}>
