@@ -7,6 +7,8 @@ import FormikTextInput from './FormikTextInput';
 
 import Text from './Text';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
+import { useHistory } from 'react-router-native';
 
 const SignInForm = ({ onSubmit }) => {
   return (
@@ -39,8 +41,18 @@ const SignIn = () => {
     username: '',
     password: '',
   };
-  const onSubmit = (values) => {
-    console.log(values);
+  const [signIn] = useSignIn();
+  const history = useHistory();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      await signIn({ username, password });
+      history.push("/reviews");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

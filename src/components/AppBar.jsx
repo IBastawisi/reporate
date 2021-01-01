@@ -1,19 +1,69 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
+import { AUTHORIZED_USER } from '../graphql/queries';
+import { useQuery } from '@apollo/client';
+import { Link, useHistory } from 'react-router-native';
+import useSignOut from '../hooks/useSignOut';
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.secondaryBg,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
+  header: {
+    fontSize: 20,
+    color: theme.colors.textOnSecondaryBg,
+  },
+  navBtn: {
+    fontSize: 18,
+    color: theme.colors.textOnSecondaryBg,
+    paddingVertical: 16,
+    paddingHorizontal: 8
+  },
+
 });
 
-const AppBar = (props) => {
-  return <View style={styles.container}>{props.children}</View>;
+const AppBar = () => {
+  const {data} = useQuery(AUTHORIZED_USER, { fetchPolicy: 'cache-and-network', });
+  const signOut = useSignOut();
+  const history = useHistory();
+
+  const logout = () => {
+    signOut();
+    history.push("/");
+  };
+
+  return <View style={styles.container}>
+    <Text style={styles.header}>RepoRate</Text>
+    <ScrollView horizontal contentContainerStyle={{ flexGrow: 1, flexDirection: "row", justifyContent: "flex-end" }}>
+      <Link to="/">
+        <Text style={styles.navBtn}>Repos</Text>
+      </Link>
+      {data?.authorizedUser ?
+        <>
+        <TouchableWithoutFeedback>
+          <Link to="/reviews">
+            <Text style={styles.navBtn}>Reviews</Text>
+          </Link>
+        </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={logout}>
+            <Text style={styles.navBtn}>Sign out</Text>
+          </TouchableWithoutFeedback>
+        </>
+        : <TouchableWithoutFeedback>
+          <Link to="/signin">
+            <Text style={styles.navBtn}>Sign in</Text>
+          </Link>          
+        </TouchableWithoutFeedback>
+      }
+    </ScrollView>
+  </View>;
 };
 
 export default AppBar;

@@ -4,7 +4,6 @@ import theme from '../theme';
 import Text from './Text';
 
 const RepositoryItem = ({ item }) => {
-  console.log(item);
   return (<View style={styles.item}>
     <View style={{ flexDirection: 'row', paddingVertical: 8 }}>
       <Image
