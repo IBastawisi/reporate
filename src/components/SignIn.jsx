@@ -13,9 +13,9 @@ import { useHistory } from 'react-router-native';
 const SignInForm = ({ onSubmit }) => {
   return (
     <View style={{ alignItems: "stretch", padding: 16 }}>
-      <FormikTextInput name="username" placeholder="username" />
-      <FormikTextInput name="password" placeholder="password" secureTextEntry />
-      <TouchableWithoutFeedback onPress={onSubmit} >
+      <FormikTextInput testID="username" name="username" placeholder="username" />
+      <FormikTextInput testID="password" name="password" placeholder="password" secureTextEntry />
+      <TouchableWithoutFeedback testID="submit" onPress={onSubmit} >
         <Text fontWeight="bold" style={{
           backgroundColor: theme.colors.primary,
           textAlign: "center",
@@ -29,18 +29,25 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
-const validationSchema = yup.object().shape({
-  username: yup
-  .string().required('username is required'),
-  password: yup
-    .string().required('password is required'),
-});
-
-const SignIn = () => {
+export const SignInFormContainer = ({ onSubmit }) => {
   const initialValues = {
     username: '',
     password: '',
   };
+  const validationSchema = yup.object().shape({
+    username: yup
+      .string().required('username is required'),
+    password: yup
+      .string().required('password is required'),
+  });
+
+  return (<Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+    {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+  </Formik>
+  );
+};
+
+const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
 
@@ -56,9 +63,7 @@ const SignIn = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
+    <SignInFormContainer onSubmit={onSubmit} />
   );
 };
 

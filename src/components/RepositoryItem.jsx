@@ -11,26 +11,26 @@ const RepositoryItem = ({ item }) => {
         source={{ uri: item.ownerAvatarUrl }}
       />
       <View style={{ paddingHorizontal: 8 }}>
-        <Text style={styles.title}>{item.fullName}</Text>
-        <Text color="textSecondary" style={{ marginVertical: 8 }}>{item.description}</Text>
-        <Text style={{ backgroundColor: theme.colors.primary, borderRadius: 3, alignSelf: "flex-start", color: "white", padding: 4 }}>{item.language}</Text>
+        <Text testID="name" style={styles.title}>{item.fullName}</Text>
+        <Text testID="description" color="textSecondary" style={{ marginVertical: 8 }}>{item.description}</Text>
+        <Text testID="language" style={{ backgroundColor: theme.colors.primary, borderRadius: 3, alignSelf: "flex-start", color: "white", padding: 4 }}>{item.language}</Text>
       </View>
     </View>
     <View style={{ flexDirection: 'row', justifyContent: "space-around", paddingVertical: 8 }}>
       <View style={{ alignItems: "center" }}>
-        <Text fontWeight="bold" style={{marginBottom: 4}}>{(item.stargazersCount/1000).toFixed(1)}k</Text>
+        <Text testID="stars" fontWeight="bold" style={{marginBottom: 4}}>{(item.stargazersCount/1000).toFixed(1)}k</Text>
         <Text>Stars</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text fontWeight="bold" style={{marginBottom: 4}}>{(item.forksCount/1000).toFixed(1)}k</Text>
+        <Text testID="forks" fontWeight="bold" style={{marginBottom: 4}}>{(item.forksCount/1000).toFixed(1)}k</Text>
         <Text>Forks</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text fontWeight="bold" style={{marginBottom: 4}}>{item.reviewCount}</Text>
+        <Text testID="reviews" fontWeight="bold" style={{marginBottom: 4}}>{item.reviewCount}</Text>
         <Text>Reviews</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text fontWeight="bold" style={{marginBottom: 4}}>{item.ratingAverage}</Text>
+        <Text testID="rating" fontWeight="bold" style={{marginBottom: 4}}>{item.ratingAverage}</Text>
         <Text>Rating</Text>
       </View>
     </View>

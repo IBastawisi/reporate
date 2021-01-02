@@ -15,10 +15,11 @@ const renderItem = ({ item }) => (
   <RepositoryItem {...{ item }} />
 );
 
-const RepositoryList = () => {
-  const { repositories } = useRepositories();
-  // Get the nodes from the edges array
-  const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : [];
+export const RepositoryListContainer = ({ repositories }) => {
+  const repositoryNodes = repositories
+    ? repositories.edges.map((edge) => edge.node)
+    : [];
+
   return (
     <FlatList
       data={repositoryNodes}
@@ -27,6 +28,12 @@ const RepositoryList = () => {
       keyExtractor={item => item.id}
     />
   );
+};
+
+const RepositoryList = () => {
+  const { repositories } = useRepositories();
+
+  return <RepositoryListContainer repositories={repositories} />;
 };
 
 export default RepositoryList;
