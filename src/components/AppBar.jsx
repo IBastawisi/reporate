@@ -47,20 +47,25 @@ const AppBar = () => {
       </Link>
       {data?.authorizedUser ?
         <>
-        <TouchableWithoutFeedback>
-          <Link to="/reviews">
-            <Text style={styles.navBtn}>Reviews</Text>
+          <Link to="/create">
+            <Text style={styles.navBtn}>Create a Review</Text>
           </Link>
-        </TouchableWithoutFeedback>
+          <Link to="/reviews">
+            <Text style={styles.navBtn}>My Reviews</Text>
+          </Link>
           <TouchableWithoutFeedback onPress={logout}>
             <Text style={styles.navBtn}>Sign out</Text>
           </TouchableWithoutFeedback>
         </>
-        : <TouchableWithoutFeedback>
+        :
+        <>
           <Link to="/signin">
             <Text style={styles.navBtn}>Sign in</Text>
           </Link>          
-        </TouchableWithoutFeedback>
+          <Link to="/signup">
+            <Text style={styles.navBtn}>Register</Text>
+          </Link>          
+        </> 
       }
     </ScrollView>
   </View>;
